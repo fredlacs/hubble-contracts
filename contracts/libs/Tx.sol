@@ -7,6 +7,7 @@ import { Types } from "./Types.sol";
 library Tx {
     // Tx types in uint256
     uint256 constant TRANSFER = 1;
+    uint256 constant MASS_MIGRATION = 5;
 
     uint256 public constant MASK_ACCOUNT_ID = 0xffffffff;
     uint256 public constant MASK_STATE_ID = 0xffffffff;
@@ -265,5 +266,21 @@ library Tx {
         returns (uint256)
     {
         return txs.length / TX_LEN_5;
+    }
+
+    function massMigration_messageOf(
+        MassMigration memory _tx,
+        uint256 nonce,
+        uint256 spokeID
+    ) internal pure returns (bytes memory) {
+        return
+            abi.encodePacked(
+                uint8(MASS_MIGRATION),
+                uint32(_tx.fromIndex),
+                uint16(_tx.amount),
+                uint16(_tx.fee),
+                uint32(nonce),
+                uint32(spokeID)
+            );
     }
 }
