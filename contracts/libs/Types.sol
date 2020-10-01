@@ -202,6 +202,7 @@ library Types {
         BadFromIndex,
         NotOnDesignatedStateLeaf,
         BadSignature,
-        MismatchedAmount
+        MismatchedAmount,
+        BadWithdrawRoot
     }
 }
